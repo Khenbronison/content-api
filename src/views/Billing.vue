@@ -8,7 +8,7 @@ import BillingHistoryCard from "@/components/billing/BillingHistoryCard.vue";
 
 // --- Reactive State (Owner Component) ---
 // This state is managed by the parent and passed down as props.
-const currentPlanId = ref("pro");
+const currentPlanId = ref("free");
 const currentUsage = reactive({
   questions: 7500,
   notes: 450,
@@ -23,20 +23,20 @@ const plans = reactive({
     features: ["1,000 Questions", "100 Lesson Notes", "100 Flashcards", "20 Videos"],
     limits: { questions: 1000, notes: 100, flashcards: 100, videos: 20 },
   },
-  pro: {
-    name: "Pro",
-    price: 25,
-    priceDetails: "/month",
-    features: ["10,000 Questions", "1,000 Lesson Notes", "1,000 Flashcards", "200 Videos"],
-    limits: { questions: 10000, notes: 1000, flashcards: 1000, videos: 200 },
-  },
-  business: {
-    name: "Business",
-    price: 100,
-    priceDetails: "/month",
-    features: ["50,000 Questions", "5,000 Lesson Notes", "5,000 Flashcards", "1,000 Videos"],
-    limits: { questions: 50000, notes: 5000, flashcards: 5000, videos: 1000 },
-  },
+  // pro: {
+  //   name: "Pro",
+  //   price: 25,
+  //   priceDetails: "/month",
+  //   features: ["10,000 Questions", "1,000 Lesson Notes", "1,000 Flashcards", "200 Videos"],
+  //   limits: { questions: 10000, notes: 1000, flashcards: 1000, videos: 200 },
+  // },
+  // business: {
+  //   name: "Business",
+  //   price: 100,
+  //   priceDetails: "/month",
+  //   features: ["50,000 Questions", "5,000 Lesson Notes", "5,000 Flashcards", "1,000 Videos"],
+  //   limits: { questions: 50000, notes: 5000, flashcards: 5000, videos: 1000 },
+  // },
   custom: {
     name: "Custom",
     price: "Let's Talk",
@@ -75,14 +75,14 @@ const selectPlan = (planId) => {
 
 <template>
   <main class="w-full p-4 md:p-6">
-    <header>
+    <!-- <header>
       <h2 class="text-3xl font-bold text-gray-800 mb-8">Billing & Plans</h2>
-    </header>
+    </header> -->
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
       <!-- Left Column -->
       <div class="lg:col-span-3 flex flex-col gap-10">
-        <CurrentPlanCard :plan-name="currentPlanData.name" :quotas="quotas" />
+        <!-- <CurrentPlanCard :plan-name="currentPlanData.name" :quotas="quotas" /> -->
 
         <section>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -99,10 +99,10 @@ const selectPlan = (planId) => {
       </div>
 
       <!-- Right Column -->
-      <div class="flex flex-col gap-8 lg:col-span-2">
+      <!-- <div class="flex flex-col gap-8 lg:col-span-2">
         <PaymentMethodCard />
         <BillingHistoryCard :history="billingHistory" />
-      </div>
+      </div> -->
     </div>
   </main>
 </template>
