@@ -9,10 +9,10 @@
       <div class="flex items-center justify-between mb-8">
         <h1
           :class="[
-            ' font-semibold text-accent-color transition-all duration-300 whitespace-nowrap overflow-hidden',
+            'text-base font-semibold text-white transition-all duration-300 whitespace-nowrap overflow-hidden',
             isCollapsed ? 'opacity-0 hidden' : 'opacity-100',
           ]">
-          GhanaCurriculum <br />API
+          GHCurriculum API
         </h1>
         <button
           @click="toggleSidebar"
