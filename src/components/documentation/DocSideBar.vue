@@ -39,8 +39,16 @@ const setActiveLink = (id) => {
 </script>
 
 <template>
-  <aside class="bg-slate-50 border-r border-slate-200 p-6 h-screen sticky top-0 overflow-y-auto hidden sm:block col-span-1">
-    <h1 class="text-2xl font-bold text-blue-600 mb-8">API Docs</h1>
+  <aside
+    class="bg-slate-50 border-r border-slate-200 p-6 h-screen sticky top-0 overflow-y-auto hidden sm:block col-span-1">
+    <div class="flex items-center gap-4 mb-8">
+      <img
+        src="../../assets/icons/back.svg"
+        width="19"
+        class="cursor-pointer"
+        @click="$router.push('/dashboard')" />
+      <h1 class="text-2xl font-bold text-blue-600">API Docs</h1>
+    </div>
     <nav>
       <ul>
         <li v-for="section in navigation" :key="section.name">
