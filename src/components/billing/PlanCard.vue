@@ -10,7 +10,7 @@
     <h4 class="text-xl font-semibold text-gray-800">{{ plan.name }}</h4>
     <div class="my-4">
       <span class="text-5xl font-bold text-gray-900">
-        {{ typeof plan.price === 'number' ? `$${plan.price}` : plan.price }}
+        {{ typeof plan.price === "number" ? `$${plan.price}` : plan.price }}
       </span>
       <span v-if="plan.priceDetails" class="text-base font-normal text-gray-500">{{
         plan.priceDetails
@@ -51,23 +51,23 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { Check } from 'lucide-vue-next'
+import { computed } from "vue";
+import { Check } from "lucide-vue-next";
 
 const props = defineProps({
   plan: { type: Object, required: true },
   planId: { type: String, required: true },
   currentPlanId: { type: String, required: true },
   currentPlanPrice: { type: Number, required: true },
-})
+});
 
-defineEmits(['select-plan'])
+defineEmits(["select-plan"]);
 
-const isCurrentPlan = computed(() => props.planId === props.currentPlanId)
+const isCurrentPlan = computed(() => props.planId === props.currentPlanId);
 
 const buttonText = computed(() => {
-  if (isCurrentPlan.value) return 'Current Plan'
-  if (props.plan.price > props.currentPlanPrice) return 'Upgrade'
-  return 'Downgrade'
-})
+  if (isCurrentPlan.value) return "Current Plan";
+  if (props.plan.price > props.currentPlanPrice) return "Upgrade";
+  return "Downgrade";
+});
 </script>

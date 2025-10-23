@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import { Lock, KeyRound } from 'lucide-vue-next'
+import { Lock, KeyRound } from "lucide-vue-next";
 
 // Define the event this component can emit
-defineEmits(['create-key-requested'])
+defineEmits(["create-key-requested"]);
 </script>

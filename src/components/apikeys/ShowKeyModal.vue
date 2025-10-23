@@ -44,41 +44,41 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { Modal } from 'flowbite'
+import { ref, onMounted, watch } from "vue";
+import { Modal } from "flowbite";
 
 const props = defineProps({
   visible: { type: Boolean, default: false },
   newlyGeneratedKey: { type: String, required: true },
-})
+});
 
-const emit = defineEmits(['update:visible', 'copy-key', 'key-creation-confirmed'])
+const emit = defineEmits(["update:visible", "copy-key", "key-creation-confirmed"]);
 
-const modalEl = ref(null)
-let modalInstance = null
-const copyBtnText = ref('Copy')
+const modalEl = ref(null);
+let modalInstance = null;
+const copyBtnText = ref("Copy");
 
 onMounted(() => {
-  modalInstance = new Modal(modalEl.value)
-})
+  modalInstance = new Modal(modalEl.value);
+});
 
 // Watch the 'visible' prop to programmatically show/hide the modal
 watch(
   () => props.visible,
   (isVisible) => {
     if (isVisible) {
-      modalInstance?.show()
+      modalInstance?.show();
     } else {
-      modalInstance?.hide()
+      modalInstance?.hide();
     }
   },
-)
+);
 
 const handleCopy = () => {
-  emit('copy-key', props.newlyGeneratedKey)
-  copyBtnText.value = 'Copied!'
+  emit("copy-key", props.newlyGeneratedKey);
+  copyBtnText.value = "Copied!";
   setTimeout(() => {
-    copyBtnText.value = 'Copy'
-  }, 2000)
-}
+    copyBtnText.value = "Copy";
+  }, 2000);
+};
 </script>

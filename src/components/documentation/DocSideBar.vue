@@ -1,30 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const activeLink = ref('get-single-quiz')
+const activeLink = ref("get-single-quiz");
 
 const navigation = ref([
-  { name: 'Introduction', href: '#introduction', isSection: true },
-  { name: 'Authentication', href: '#authentication', isSection: true },
+  { name: "Introduction", href: "#introduction", isSection: true },
+  { name: "Authentication", href: "#authentication", isSection: true },
   {
-    name: 'Quizzes',
+    name: "Quizzes",
     isOpen: true,
     links: [
-      { name: 'Get All Quizzes', href: '#get-all-quizzes', id: 'get-all-quizzes' },
-      { name: 'Get a Single Quiz', href: '#get-single-quiz', id: 'get-single-quiz' },
+      { name: "Get All Quizzes", href: "#get-all-quizzes", id: "get-all-quizzes" },
+      { name: "Get a Single Quiz", href: "#get-single-quiz", id: "get-single-quiz" },
     ],
   },
   {
-    name: 'Lesson Notes',
+    name: "Lesson Notes",
     isOpen: false,
-    links: [{ name: 'Get All Notes', href: '#get-all-notes', id: 'get-all-notes' }],
+    links: [{ name: "Get All Notes", href: "#get-all-notes", id: "get-all-notes" }],
   },
-  { name: 'Error Handling', href: '#errors', isSection: true },
-])
+  { name: "Error Handling", href: "#errors", isSection: true },
+]);
 
 const setActiveLink = (id) => {
-  activeLink.value = id
-}
+  activeLink.value = id;
+};
 </script>
 
 <template>
@@ -44,8 +44,7 @@ const setActiveLink = (id) => {
           <!-- Collapsible section -->
           <details v-else :open="section.isOpen" class="group">
             <summary
-              class="font-semibold py-2 cursor-pointer list-none text-slate-800 group-open:text-blue-600"
-            >
+              class="font-semibold py-2 cursor-pointer list-none text-slate-800 group-open:text-blue-600">
               {{ section.name }}
             </summary>
             <ul class="pl-4 ml-2 border-l-2 border-slate-200 space-y-1">
@@ -58,8 +57,7 @@ const setActiveLink = (id) => {
                     activeLink === link.id
                       ? 'font-medium text-blue-600'
                       : 'text-slate-500 hover:text-slate-700'
-                  "
-                >
+                  ">
                   {{ link.name }}
                 </a>
               </li>

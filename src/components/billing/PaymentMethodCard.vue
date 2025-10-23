@@ -14,5 +14,5 @@
 </template>
 
 <script setup>
-import { CreditCard } from 'lucide-vue-next'
+import { CreditCard } from "lucide-vue-next";
 </script>

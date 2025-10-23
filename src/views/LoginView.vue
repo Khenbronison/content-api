@@ -7,76 +7,74 @@
         :is-loading="isLoading"
         :server-error="errorMessage"
         @login-requested="handleLogin"
-        @switch-to-signup="formState = 'signup'"
-      />
+        @switch-to-signup="formState = 'signup'" />
 
       <SignUpFormComponent
         v-else
         :is-loading="isLoading"
         :server-error="errorMessage"
         @signup-requested="handleSignUp"
-        @switch-to-login="formState = 'login'"
-      />
+        @switch-to-login="formState = 'login'" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useNotification } from '@kyvg/vue3-notification'
-import LoginFormComponent from '@/components/login/LoginForm.vue' // Adjust path if needed
-import SignUpFormComponent from '@/components/login/SignUp.vue' // Adjust path if needed
-import router from '@/router'
-import { useApiService } from '@/services/apiService'
-import { useAuthStore } from '@/stores/Auth'
+import { ref } from "vue";
+import { useNotification } from "@kyvg/vue3-notification";
+import LoginFormComponent from "@/components/login/LoginForm.vue"; // Adjust path if needed
+import SignUpFormComponent from "@/components/login/SignUp.vue"; // Adjust path if needed
+import router from "@/router";
+import { useApiService } from "@/services/apiService";
+import { useAuthStore } from "@/stores/Auth";
 
 // --- State Management (in the Parent) ---
-const formState = ref('login') // 'login' or 'signup'
-const errorMessage = ref('')
-const isLoading = ref(false)
+const formState = ref("login"); // 'login' or 'signup'
+const errorMessage = ref("");
+const isLoading = ref(false);
 
-const { notify } = useNotification()
+const { notify } = useNotification();
 
-const { post } = useApiService()
-const authStore = useAuthStore()
+const { post } = useApiService();
+const authStore = useAuthStore();
 // --- Logic (in the Parent) ---
 const handleLogin = async ({ email, password }) => {
   if (!email || !password) {
-    errorMessage.value = 'Please enter both email and password.'
-    return
+    errorMessage.value = "Please enter both email and password.";
+    return;
   }
-  isLoading.value = true
-  errorMessage.value = ''
+  isLoading.value = true;
+  errorMessage.value = "";
 
   try {
-    const userDataFromApi = await post('api/v1/auth/login', {
+    const userDataFromApi = await post("api/v1/auth/login", {
       email: email,
       password: password,
-    })
+    });
 
-    authStore.setUser(userDataFromApi)
+    authStore.setUser(userDataFromApi);
 
-    router.push('/dashboard')
+    router.push("/dashboard");
   } catch (error) {
-    errorMessage.value = error
+    errorMessage.value = error;
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 
 const handleSignUp = async (user) => {
-  isLoading.value = true
-  errorMessage.value = '' // Reset errors
+  isLoading.value = true;
+  errorMessage.value = ""; // Reset errors
 
   try {
-    const userDataFromApi = await post('/api/v1/auth/register', user)
+    const userDataFromApi = await post("/api/v1/auth/register", user);
 
-    authStore.setUser(userDataFromApi)
-    router.push('/dashboard')
+    authStore.setUser(userDataFromApi);
+    router.push("/dashboard");
   } catch (error) {
-    errorMessage.value = error
+    errorMessage.value = error;
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 </script>

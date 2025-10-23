@@ -1,112 +1,112 @@
 <script setup>
-import { ref, computed, onBeforeMount } from 'vue'
-import ApiKeyEmptyState from '@/components/apikeys/ApiKeyEmptyState.vue'
-import ApiKeyDisplay from '@/components/apikeys/ApiKeyDisplay.vue'
-import ShowKeyModal from '@/components/apikeys/ShowKeyModal.vue'
-import ConfirmRevokeModal from '@/components/apikeys/ConfirmRevokeModal.vue'
-import { useNotification } from '@kyvg/vue3-notification'
-import { useApiService } from '@/services/apiService'
-import { useAuthStore } from '@/stores/Auth'
-import { storeToRefs } from 'pinia'
+import { ref, computed, onBeforeMount } from "vue";
+import ApiKeyEmptyState from "@/components/apikeys/ApiKeyEmptyState.vue";
+import ApiKeyDisplay from "@/components/apikeys/ApiKeyDisplay.vue";
+import ShowKeyModal from "@/components/apikeys/ShowKeyModal.vue";
+import ConfirmRevokeModal from "@/components/apikeys/ConfirmRevokeModal.vue";
+import { useNotification } from "@kyvg/vue3-notification";
+import { useApiService } from "@/services/apiService";
+import { useAuthStore } from "@/stores/Auth";
+import { storeToRefs } from "pinia";
 
-const authStore = useAuthStore()
-const { notify } = useNotification()
-const { get, post, deletes } = useApiService()
-const { user } = storeToRefs(authStore)
+const authStore = useAuthStore();
+const { notify } = useNotification();
+const { get, post, deletes } = useApiService();
+const { user } = storeToRefs(authStore);
 // --- State Owner ---
-const apiKey = ref(null)
-const newlyGeneratedKey = ref('')
-const isShowKeyModalVisible = ref(false)
-const isConfirmRevokeModalVisible = ref(false)
-const isGetKeyLoading = ref(false)
-const isGenerateApiKeyLoading = ref(false)
-const isRemoveApiKeyLoading = ref(false)
+const apiKey = ref(null);
+const newlyGeneratedKey = ref("");
+const isShowKeyModalVisible = ref(false);
+const isConfirmRevokeModalVisible = ref(false);
+const isGetKeyLoading = ref(false);
+const isGenerateApiKeyLoading = ref(false);
+const isRemoveApiKeyLoading = ref(false);
 // --- Computed Properties ---
 const maskedApiKey = computed(() => {
-  if (!apiKey.value?.key) return ''
-  const key = apiKey.value.key
-  return `${key.substring(0, 11)}...${key.substring(key.length - 4)}`
-})
+  if (!apiKey.value?.key) return "";
+  const key = apiKey.value.key;
+  return `${key.substring(0, 11)}...${key.substring(key.length - 4)}`;
+});
 
 const creationDate = computed(() => {
-  if (!apiKey.value?.createdAt) return ''
-  return new Date(apiKey.value.createdAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-})
+  if (!apiKey.value?.createdAt) return "";
+  return new Date(apiKey.value.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+});
 
 // --- Business Logic / Event Handlers ---
 const getApiKey = async () => {
-  isGetKeyLoading.value = true
+  isGetKeyLoading.value = true;
   try {
-    const userApiKey = await get('/api/v1/api-keys')
-    apiKey.value = userApiKey[0]
-    console.log(apiKey.value)
+    const userApiKey = await get("/api/v1/api-keys");
+    apiKey.value = userApiKey[0];
+    console.log(apiKey.value);
   } catch (error) {
   } finally {
-    isGetKeyLoading.value = false
+    isGetKeyLoading.value = false;
   }
-}
+};
 
 const generateApiKey = async () => {
-  isGenerateApiKeyLoading.value = true
+  isGenerateApiKeyLoading.value = true;
 
   try {
-    const generatedApiKey = await post('/api/v1/api-keys', { name: user.value })
-    newlyGeneratedKey.value = generatedApiKey
-    console.log(newlyGeneratedKey.value)
+    const generatedApiKey = await post("/api/v1/api-keys", { name: user.value });
+    newlyGeneratedKey.value = generatedApiKey;
+    console.log(newlyGeneratedKey.value);
   } catch (error) {
   } finally {
-    isGenerateApiKeyLoading.value = false
+    isGenerateApiKeyLoading.value = false;
   }
-}
+};
 
 const handleCreateKeyRequested = () => {
-  newlyGeneratedKey.value = generateApiKey()
-  isShowKeyModalVisible.value = true
-}
+  newlyGeneratedKey.value = generateApiKey();
+  isShowKeyModalVisible.value = true;
+};
 
 const handleRevokeKeyRequested = () => {
-  isConfirmRevokeModalVisible.value = true
-}
+  isConfirmRevokeModalVisible.value = true;
+};
 
 const confirmKeyCreation = () => {
   apiKey.value = {
     key: newlyGeneratedKey.value,
     createdAt: new Date().toISOString(),
-  }
-  isShowKeyModalVisible.value = false
-  newlyGeneratedKey.value = ''
-}
+  };
+  isShowKeyModalVisible.value = false;
+  newlyGeneratedKey.value = "";
+};
 
 const confirmKeyRevocation = async () => {
-  isRemoveApiKeyLoading.value = true
+  isRemoveApiKeyLoading.value = true;
   try {
-    const removeApiKey = await deletes(`/api/v1/api-key/${apiKey.value.id}`)
-    notify({ type: 'success', title: 'success', text: removeApiKey.message })
-    apiKey.value = null
+    const removeApiKey = await deletes(`/api/v1/api-key/${apiKey.value.id}`);
+    notify({ type: "success", title: "success", text: removeApiKey.message });
+    apiKey.value = null;
   } catch (error) {
   } finally {
-    isRemoveApiKeyLoading.value = false
-    isConfirmRevokeModalVisible.value = false
+    isRemoveApiKeyLoading.value = false;
+    isConfirmRevokeModalVisible.value = false;
   }
-}
+};
 
 const copyToClipboard = async (text) => {
   try {
-    await navigator.clipboard.writeText(text)
+    await navigator.clipboard.writeText(text);
     // notify({ type: 'success', text: 'API Key copied to clipboard!' });
   } catch (err) {
-    console.error('Failed to copy text: ', err)
+    console.error("Failed to copy text: ", err);
     // notify({ type: 'error', text: 'Failed to copy key.' });
   }
-}
+};
 
 onBeforeMount(() => {
-  getApiKey()
-})
+  getApiKey();
+});
 </script>
 
 <template>
@@ -144,8 +144,7 @@ onBeforeMount(() => {
         :masked-key="maskedApiKey"
         :creation-date="creationDate"
         @copy-key="copyToClipboard"
-        @revoke-key-requested="handleRevokeKeyRequested"
-      />
+        @revoke-key-requested="handleRevokeKeyRequested" />
     </div>
 
     <!-- Modals are now controlled via v-model -->
@@ -153,12 +152,10 @@ onBeforeMount(() => {
       v-model:visible="isShowKeyModalVisible"
       :newly-generated-key="newlyGeneratedKey"
       @copy-key="copyToClipboard"
-      @key-creation-confirmed="confirmKeyCreation"
-    />
+      @key-creation-confirmed="confirmKeyCreation" />
 
     <ConfirmRevokeModal
       v-model:visible="isConfirmRevokeModalVisible"
-      @revocation-confirmed="confirmKeyRevocation"
-    />
+      @revocation-confirmed="confirmKeyRevocation" />
   </main>
 </template>

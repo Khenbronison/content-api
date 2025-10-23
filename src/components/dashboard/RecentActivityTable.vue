@@ -5,13 +5,11 @@
       <thead>
         <tr>
           <th
-            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary"
-          >
+            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary">
             Timestamp
           </th>
           <th
-            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary"
-          >
+            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary">
             Endpoint
           </th>
           <!-- <th
@@ -54,5 +52,5 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-})
+});
 </script>

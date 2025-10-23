@@ -1,6 +1,6 @@
 <script setup>
-import DocSidebar from '../components/documentation/DocSideBar.vue'
-import CodePanel from '../components/documentation/CodePanel.vue'
+import DocSidebar from "../components/documentation/DocSideBar.vue";
+import CodePanel from "../components/documentation/CodePanel.vue";
 </script>
 
 <template>
@@ -105,7 +105,7 @@ import CodePanel from '../components/documentation/CodePanel.vue'
   color: #1e293b; /* text-slate-800 */
 }
 .docs-content code {
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 0.9em;
 }
 .docs-content code.endpoint {

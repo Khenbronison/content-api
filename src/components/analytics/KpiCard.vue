@@ -20,7 +20,7 @@ defineProps({
   },
   unit: {
     type: String,
-    default: '',
+    default: "",
   },
-})
+});
 </script>

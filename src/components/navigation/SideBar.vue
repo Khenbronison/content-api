@@ -6,40 +6,35 @@
         <li class="mb-4">
           <router-link
             to="/dashboard"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             Dashboard
           </router-link>
         </li>
         <li class="mb-4">
           <router-link
             to="/analytics"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             Analytics
           </router-link>
         </li>
         <li class="mb-4">
           <router-link
             to="/api/documentation"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             API Documentation
           </router-link>
         </li>
         <li class="mb-4">
           <router-link
             to="/api/keys"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             API Keys
           </router-link>
         </li>
         <li class="mb-4">
           <router-link
             to="/billing"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             Billing
           </router-link>
         </li>
@@ -47,8 +42,7 @@
         <li class="mt-[90%]">
           <router-link
             to="/"
-            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium"
-          >
+            class="block py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium">
             Logout
           </router-link>
         </li>
@@ -59,6 +53,6 @@
 
 <script>
 export default {
-  name: 'Sidebar',
-}
+  name: "Sidebar",
+};
 </script>

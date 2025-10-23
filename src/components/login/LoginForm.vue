@@ -14,8 +14,7 @@
           v-model="email"
           placeholder="e.g. developer@example.com"
           autocomplete="email"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
       <!-- Password Input -->
       <div class="mb-6">
@@ -24,8 +23,7 @@
           v-model="password"
           placeholder="Enter your password"
           autocomplete="current-password"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
 
       <!-- Error passed from parent -->
@@ -38,9 +36,8 @@
         type="submit"
         :disabled="isLoading || !email || !password"
         class="w-full bg-blue-700 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg"
-        :class="{ 'opacity-60 cursor-not-allowed': isLoading }"
-      >
-        {{ isLoading ? 'Logging In...' : 'Login' }}
+        :class="{ 'opacity-60 cursor-not-allowed': isLoading }">
+        {{ isLoading ? "Logging In..." : "Login" }}
       </button>
     </form>
 
@@ -51,39 +48,34 @@
         Forgot Password?
       </RouterLink>
 
-      <p class="text-gray-600">
+      <p class="text-gray-600 font-medium">
         Don't have an account?
         <!-- Use <a> with @click for actions on the current page -->
-        <a
-          href="#"
-          @click.prevent="$emit('switch-to-signup')"
-          class="text-blue-500 hover:underline font-medium"
-          >Sign Up</a
-        >
+        <span @click="$emit('switch-to-signup')" class="text-blue-500 cursor-pointer">Sign Up</span>
       </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 // Make sure RouterLink is available if you're not using it globally
 // import { RouterLink } from 'vue-router';
 
 defineProps({
   isLoading: { type: Boolean, default: false },
-  serverError: { type: String, default: '' },
-})
+  serverError: { type: String, default: "" },
+});
 
-const emit = defineEmits(['login-requested', 'switch-to-signup'])
+const emit = defineEmits(["login-requested", "switch-to-signup"]);
 
-const email = ref('')
-const password = ref('')
+const email = ref("");
+const password = ref("");
 
 const submitForm = () => {
   if (!email.value || !password.value) {
-    return
+    return;
   }
-  emit('login-requested', { email: email.value, password: password.value })
-}
+  emit("login-requested", { email: email.value, password: password.value });
+};
 </script>

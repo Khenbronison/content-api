@@ -44,31 +44,31 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { Modal } from 'flowbite'
-import { Trash2 } from 'lucide-vue-next'
+import { ref, onMounted, watch } from "vue";
+import { Modal } from "flowbite";
+import { Trash2 } from "lucide-vue-next";
 
 const props = defineProps({
   visible: { type: Boolean, default: false },
-})
+});
 
-const emit = defineEmits(['update:visible', 'revocation-confirmed'])
+const emit = defineEmits(["update:visible", "revocation-confirmed"]);
 
-const modalEl = ref(null)
-let modalInstance = null
+const modalEl = ref(null);
+let modalInstance = null;
 
 onMounted(() => {
-  modalInstance = new Modal(modalEl.value)
-})
+  modalInstance = new Modal(modalEl.value);
+});
 
 watch(
   () => props.visible,
   (isVisible) => {
     if (isVisible) {
-      modalInstance?.show()
+      modalInstance?.show();
     } else {
-      modalInstance?.hide()
+      modalInstance?.hide();
     }
   },
-)
+);
 </script>

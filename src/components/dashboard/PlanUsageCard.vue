@@ -16,8 +16,7 @@
         <div class="w-full h-2 bg-border-color rounded-md overflow-hidden">
           <div
             class="h-full bg-success-color rounded-md"
-            :style="{ width: calculatePercentage(type) + '%' }"
-          ></div>
+            :style="{ width: calculatePercentage(type) + '%' }"></div>
         </div>
       </div>
     </div>
@@ -32,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps({
   plansData: {
@@ -47,23 +46,23 @@ const props = defineProps({
     type: String,
     required: true,
   },
-})
+});
 
 const currentPlanName = computed(() => {
-  return props.plansData[props.currentPlanId]?.name || 'Unknown'
-})
+  return props.plansData[props.currentPlanId]?.name || "Unknown";
+});
 
 const planQuotas = computed(() => {
-  return props.plansData[props.currentPlanId]?.limits || {}
-})
+  return props.plansData[props.currentPlanId]?.limits || {};
+});
 
 function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function calculatePercentage(type) {
-  const usage = props.currentUsage[type] || 0
-  const limit = planQuotas.value[type] || 1
-  return Math.min((usage / limit) * 100, 100)
+  const usage = props.currentUsage[type] || 0;
+  const limit = planQuotas.value[type] || 1;
+  return Math.min((usage / limit) * 100, 100);
 }
 </script>

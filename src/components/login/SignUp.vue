@@ -12,8 +12,7 @@
           v-model="name"
           placeholder="Enter your Organisation's name"
           autocomplete="text"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
 
       <!-- Email Input -->
@@ -23,8 +22,7 @@
           v-model="email"
           placeholder="Email"
           autocomplete="email"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
 
       <!-- Password Input -->
@@ -34,8 +32,7 @@
           v-model="password"
           placeholder="Password"
           autocomplete="new-password"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
       <!-- Confirm Password Input -->
       <div class="mb-6">
@@ -44,8 +41,7 @@
           v-model="confirmPassword"
           placeholder="Confirm Password"
           autocomplete="new-password"
-          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+          class="w-full p-3 border border-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
 
       <!-- Error Message Display -->
@@ -61,59 +57,53 @@
         type="submit"
         :disabled="isLoading || !email || !password"
         class="w-full bg-blue-700 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg"
-        :class="{ 'opacity-60 cursor-not-allowed': isLoading }"
-      >
-        {{ isLoading ? 'Creating Account...' : 'Sign Up' }}
+        :class="{ 'opacity-60 cursor-not-allowed': isLoading }">
+        {{ isLoading ? "Creating Account..." : "Sign Up" }}
       </button>
     </form>
 
     <!-- Link to Login -->
     <div class="helper-links text-center mt-6 text-sm">
-      <p class="text-gray-600">
+      <p class="text-gray-600 font-medium">
         Already have an account?
-        <a
-          href="#"
-          @click.prevent="$emit('switch-to-login')"
-          class="text-blue-500 hover:underline font-medium"
-          >Log In</a
-        >
+        <span class="text-blue-500 cursor-pointer" @click="$emit('switch-to-login')">Log In</span>
       </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 defineProps({
   isLoading: { type: Boolean, default: false },
-  serverError: { type: String, default: '' },
-})
+  serverError: { type: String, default: "" },
+});
 
-const emit = defineEmits(['signup-requested', 'switch-to-login'])
+const emit = defineEmits(["signup-requested", "switch-to-login"]);
 
-const name = ref('')
-const organisationName = ref('')
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const localError = ref('')
+const name = ref("");
+const organisationName = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const localError = ref("");
 
 const submitForm = () => {
   // Local validation
   if (!name.value || !email.value || !password.value || !confirmPassword.value) {
-    localError.value = 'Please fill out all fields.'
-    return
+    localError.value = "Please fill out all fields.";
+    return;
   }
   if (password.value !== confirmPassword.value) {
-    localError.value = 'Passwords do not match.'
-    return
+    localError.value = "Passwords do not match.";
+    return;
   }
   if (password.value.length < 6) {
-    localError.value = 'Password must be at least 6 characters long.'
-    return
+    localError.value = "Password must be at least 6 characters long.";
+    return;
   }
-  localError.value = ''
+  localError.value = "";
   // Emit the data to the parent component for handling
   const user = {
     username: name.value,
@@ -121,7 +111,7 @@ const submitForm = () => {
     email: email.value,
     password: password.value,
     password_confirmation: confirmPassword.value,
-  }
-  emit('signup-requested', user)
-}
+  };
+  emit("signup-requested", user);
+};
 </script>

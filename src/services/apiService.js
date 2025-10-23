@@ -65,8 +65,7 @@ export function useApiService() {
     } catch (error) {
       if (error instanceof HttpError) {
         const configFn =
-          ERROR_NOTIFICATION_CONFIG[error.status] ||
-          ERROR_NOTIFICATION_CONFIG.defaultHttp;
+          ERROR_NOTIFICATION_CONFIG[error.status] || ERROR_NOTIFICATION_CONFIG.defaultHttp;
         notify(configFn(error.status, error.data));
 
         // Special handling for 401: often involves redirecting or clearing session
@@ -74,9 +73,7 @@ export function useApiService() {
           // Example: localStorage.removeItem('token');
           // Example: router.push('/login');
           // You might want to make this configurable or handle it in the component if it varies.
-          console.warn(
-            "API Service: Caught 401 Unauthorized. Further action may be required.",
-          );
+          console.warn("API Service: Caught 401 Unauthorized. Further action may be required.");
         }
       } else {
         // Generic Error (likely network error from apiFetch's own catch)
@@ -93,8 +90,7 @@ export function useApiService() {
   // You can add specific methods like get, post, etc.
   return {
     request,
-    get: (endpoint, options = {}) =>
-      request(endpoint, { ...options, method: "GET" }),
+    get: (endpoint, options = {}) => request(endpoint, { ...options, method: "GET" }),
     post: (endpoint, body, options = {}) =>
       request(endpoint, {
         ...options,
@@ -107,8 +103,7 @@ export function useApiService() {
         method: "PUT",
         body: JSON.stringify(body),
       }),
-    deletes: (endpoint, options = {}) =>
-      request(endpoint, { ...options, method: "DELETE" }),
+    deletes: (endpoint, options = {}) => request(endpoint, { ...options, method: "DELETE" }),
     // ... other HTTP methods
   };
 }

@@ -1,10 +1,10 @@
 <script setup>
-import { ref, computed, reactive } from 'vue'
-import { Copy, Check } from 'lucide-vue-next'
+import { ref, computed, reactive } from "vue";
+import { Copy, Check } from "lucide-vue-next";
 
 // --- State ---
-const activeLang = ref('curl')
-const copyButtonText = ref('Copy')
+const activeLang = ref("curl");
+const copyButtonText = ref("Copy");
 
 const codeSnippets = reactive({
   curl: `# Request for a single quiz
@@ -55,28 +55,28 @@ if response.status_code == 200:
     print(response.json())
 else:
     print(f"Error: {response.status_code}")`,
-})
+});
 
 // --- Computed ---
-const activeCode = computed(() => codeSnippets[activeLang.value])
+const activeCode = computed(() => codeSnippets[activeLang.value]);
 
 // --- Methods ---
 const selectLang = (lang) => {
-  activeLang.value = lang
-}
+  activeLang.value = lang;
+};
 
 const copyCode = async () => {
   try {
-    await navigator.clipboard.writeText(activeCode.value)
-    copyButtonText.value = 'Copied!'
+    await navigator.clipboard.writeText(activeCode.value);
+    copyButtonText.value = "Copied!";
     setTimeout(() => {
-      copyButtonText.value = 'Copy'
-    }, 2000)
+      copyButtonText.value = "Copy";
+    }, 2000);
   } catch (err) {
-    console.error('Failed to copy text: ', err)
-    copyButtonText.value = 'Error'
+    console.error("Failed to copy text: ", err);
+    copyButtonText.value = "Error";
   }
-}
+};
 </script>
 
 <template>
@@ -88,8 +88,7 @@ const copyCode = async () => {
         :class="
           activeLang === 'curl' ? 'text-white border-blue-500' : 'text-slate-400 border-transparent'
         "
-        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors"
-      >
+        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors">
         cURL
       </button>
       <button
@@ -99,8 +98,7 @@ const copyCode = async () => {
             ? 'text-white border-blue-500'
             : 'text-slate-400 border-transparent'
         "
-        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors"
-      >
+        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors">
         JavaScript
       </button>
       <button
@@ -110,8 +108,7 @@ const copyCode = async () => {
             ? 'text-white border-blue-500'
             : 'text-slate-400 border-transparent'
         "
-        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors"
-      >
+        class="relative font-semibold text-sm py-3 px-2 mr-4 border-b-2 hover:text-white transition-colors">
         Python
       </button>
     </div>
@@ -120,8 +117,7 @@ const copyCode = async () => {
     <div class="p-6 relative overflow-y-auto">
       <button
         @click="copyCode"
-        class="absolute top-6 right-6 bg-slate-600 hover:bg-slate-500 text-slate-100 font-medium py-1.5 px-3 rounded-lg text-sm flex items-center gap-2"
-      >
+        class="absolute top-6 right-6 bg-slate-600 hover:bg-slate-500 text-slate-100 font-medium py-1.5 px-3 rounded-lg text-sm flex items-center gap-2">
         <Check v-if="copyButtonText === 'Copied!'" class="w-4 h-4" />
         <Copy v-else class="w-4 h-4" />
         {{ copyButtonText }}

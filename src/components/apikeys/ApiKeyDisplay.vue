@@ -28,25 +28,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const props = defineProps({
   keyId: { type: String, required: true },
   apiKey: { type: String, required: true },
   maskedKey: { type: String, required: true },
   creationDate: { type: String, required: true },
-})
+});
 
-const emit = defineEmits(['copy-key', 'revoke-key-requested'])
+const emit = defineEmits(["copy-key", "revoke-key-requested"]);
 
-const copyBtnText = ref('Copy')
+const copyBtnText = ref("Copy");
 
 const handleCopy = () => {
   // Emit the full key to the parent to handle the copy logic
-  emit('copy-key', props.apiKey)
-  copyBtnText.value = 'Copied!'
+  emit("copy-key", props.apiKey);
+  copyBtnText.value = "Copied!";
   setTimeout(() => {
-    copyBtnText.value = 'Copy'
-  }, 2000)
-}
+    copyBtnText.value = "Copy";
+  }, 2000);
+};
 </script>

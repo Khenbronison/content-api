@@ -40,11 +40,11 @@
 </template>
 
 <script setup>
-import { Download } from 'lucide-vue-next'
+import { Download } from "lucide-vue-next";
 defineProps({
   history: {
     type: Array,
     required: true,
   },
-})
+});
 </script>

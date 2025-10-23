@@ -12,9 +12,9 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/stores/Auth'
-import { storeToRefs } from 'pinia'
+import { useAuthStore } from "@/stores/Auth";
+import { storeToRefs } from "pinia";
 
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 </script>

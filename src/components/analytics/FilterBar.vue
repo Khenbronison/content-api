@@ -71,32 +71,32 @@
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
-import { format, subDays } from 'date-fns'
+import { reactive, watch } from "vue";
+import { format, subDays } from "date-fns";
 
-const emit = defineEmits(['apply-filters'])
+const emit = defineEmits(["apply-filters"]);
 
 const filters = reactive({
-  dateRange: '30',
-  startDate: format(subDays(new Date(), 30), 'yyyy-MM-dd'),
-  endDate: format(new Date(), 'yyyy-MM-dd'),
-  contentType: 'all',
-})
+  dateRange: "30",
+  startDate: format(subDays(new Date(), 30), "yyyy-MM-dd"),
+  endDate: format(new Date(), "yyyy-MM-dd"),
+  contentType: "all",
+});
 
 const emitFilters = () => {
-  emit('apply-filters', { ...filters })
-}
+  emit("apply-filters", { ...filters });
+};
 
 // Watch for changes in predefined ranges and apply filters automatically
 watch(
   () => filters.dateRange,
   (newRange) => {
-    if (newRange !== 'custom') {
-      emitFilters()
+    if (newRange !== "custom") {
+      emitFilters();
     }
   },
-)
+);
 
 // Emit initial filters on component mount
-emitFilters()
+emitFilters();
 </script>
