@@ -17,11 +17,10 @@
           >
             Status
           </th> -->
-          <!-- <th
-            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary"
-          >
-            Latency
-          </th> -->
+          <th
+            class="text-left py-3 px-4 border-b border-border-color text-xs uppercase text-text-secondary">
+            NUMBER
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -39,7 +38,7 @@
               {{ activity.status }}
             </span>
           </td> -->
-          <!-- <td class="py-3 px-4 border-b border-border-color">{{ activity.latency }}</td> -->
+          <td class="py-3 px-4 border-b border-border-color">{{ activity.number }}</td>
         </tr>
       </tbody>
     </table>

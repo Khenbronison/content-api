@@ -5,8 +5,7 @@
       'bg-white rounded-lg p-6 text-center transition-all duration-200 border-2',
       isCurrentPlan ? 'border-blue-500 scale-[1.02]' : 'border-gray-200 hover:border-gray-300',
       plan.isCustom ? 'border-dashed' : '',
-    ]"
-  >
+    ]">
     <h4 class="text-xl font-semibold text-gray-800">{{ plan.name }}</h4>
     <div class="my-4">
       <span class="text-5xl font-bold text-gray-900">
@@ -29,8 +28,7 @@
     <template v-if="plan.isCustom">
       <a
         href="mailto:sales@ghcurriculum.com"
-        class="block w-full py-3 px-4 rounded-lg font-semibold text-sm bg-blue-500 text-white hover:bg-blue-600"
-      >
+        class="block w-full py-3 px-4 rounded-lg font-semibold text-sm bg-blue-500 text-white hover:bg-blue-600">
         Contact Sales
       </a>
     </template>
@@ -42,8 +40,7 @@
         :class="{
           'bg-blue-50 text-blue-600 border-blue-200': isCurrentPlan,
           'bg-blue-500 text-white border-blue-500 hover:bg-blue-600': !isCurrentPlan,
-        }"
-      >
+        }">
         {{ buttonText }}
       </button>
     </template>

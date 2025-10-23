@@ -95,6 +95,7 @@ const recentActivity = [
     endpoint: "/questions/search",
     status: "Success",
     latency: "78ms",
+    number: "38",
   },
   {
     id: 2,
@@ -102,6 +103,7 @@ const recentActivity = [
     endpoint: "/notes/get",
     status: "Success",
     latency: "92ms",
+    number: "879",
   },
   {
     id: 3,
@@ -109,6 +111,7 @@ const recentActivity = [
     endpoint: "/flashcards/list",
     status: "Error",
     latency: "110ms",
+    number: "2000",
   },
   {
     id: 4,
@@ -116,6 +119,7 @@ const recentActivity = [
     endpoint: "/videos/play",
     status: "Success",
     latency: "65ms",
+    number: "1",
   },
   {
     id: 5,
@@ -123,6 +127,7 @@ const recentActivity = [
     endpoint: "/questions/search",
     status: "Success",
     latency: "88ms",
+    number: "500",
   },
 ];
 
