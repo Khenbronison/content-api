@@ -1,9 +1,25 @@
 <template>
-  <main class="flex-1 p-8">
-    <DashboardHeader />
-    <div class="mb-4">
-      <p class="font-semibold">Tokens left:</p>
-      <span class="text-text-secondary">2345 out of 34567</span>
+  <main class="flex-1 px-8">
+    <header class="flex justify-between items-center mb-4">
+      <div class="flex items-center gap-2">
+        <h2 class="text-base font-semibold text-blue-700">Welcome back, {{ user }}</h2>
+        <img src="../assets/icons/wave.svg" alt="" width="15" />
+      </div>
+      <div class="flex items-center space-x-3 font-medium">
+        <Bell color="gray" size="15" strokeWidth="3" />
+        <div class="p-2 bg-blue-700/60 rounded-full">
+          <User color="white" size="15" />
+        </div>
+      </div>
+    </header>
+
+    <div class="mb-8 flex justify-between">
+      <p class="text-2xl font-medium text-gray-800">Dashboard</p>
+      <div class="">
+        <p class="font-semibold text-gray-600">
+          Tokens left: <span class="text-black">2345 / 34567</span>
+        </p>
+      </div>
     </div>
 
     <!-- <div class="grid grid-cols-3 gap-6 mb-6">
@@ -14,6 +30,7 @@
       />
       <KpiCardGrid />
     </div> -->
+    <p class="text-text-secondary mb-4">Here's a summary of your API usage.</p>
     <ContentFetchedCard :currentUsage="currentUsage" />
 
     <div class="grid grid-cols-2 gap-6">
@@ -48,13 +65,13 @@ import {
   Filler,
 } from "chart.js";
 import { Line as LineChart, Bar as BarChart } from "vue-chartjs";
+import { Bell, User } from "lucide-vue-next";
 
 // Import child components
-import DashboardHeader from "@/components/dashboard/DashboardHeader.vue";
-import PlanUsageCard from "@/components/dashboard/PlanUsageCard.vue";
-import KpiCardGrid from "@/components/dashboard/KpiCardGrid.vue";
 import ContentFetchedCard from "@/components/dashboard/ContentFetchedCard.vue";
 import RecentActivityTable from "@/components/dashboard/RecentActivityTable.vue";
+import { useAuthStore } from "@/stores/Auth";
+import { storeToRefs } from "pinia";
 
 // Register Chart.js components
 ChartJS.register(
@@ -68,6 +85,9 @@ ChartJS.register(
   Legend,
   Filler,
 );
+
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 
 // Data that was in the original script setup
 const plansData = {
