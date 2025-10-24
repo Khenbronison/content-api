@@ -1,8 +1,7 @@
 <template>
   <header class="flex justify-between items-center mb-8">
     <div>
-      <h2 class="text-2xl font-semibold text-text-primary">Welcome back, {{ user }}!</h2>
-      <p class="text-text-secondary">Here's a summary of your API usage.</p>
+      <h2 class="text-base font-semibold text-text-primary">Welcome back, {{ user }}!</h2>
     </div>
     <!-- <div class="flex items-center space-x-2 font-medium">
       <div class="w-3 h-3 bg-success-color rounded-full"></div>
