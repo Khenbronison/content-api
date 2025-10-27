@@ -1,20 +1,22 @@
 <template>
   <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-    <div class="bg-white p-10 rounded-xl shadow-lg w-full max-w-md text-center">
+    <div class="box w-full max-w-md text-center">
       <!-- Conditionally render the correct form component -->
-      <LoginFormComponent
-        v-if="formState === 'login'"
-        :is-loading="isLoading"
-        :server-error="errorMessage"
-        @login-requested="handleLogin"
-        @switch-to-signup="formState = 'signup'" />
+      <div class="p-4">
+        <LoginFormComponent
+          v-if="formState === 'login'"
+          :is-loading="isLoading"
+          :server-error="errorMessage"
+          @login-requested="handleLogin"
+          @switch-to-signup="formState = 'signup'" />
 
-      <SignUpFormComponent
-        v-else
-        :is-loading="isLoading"
-        :server-error="errorMessage"
-        @signup-requested="handleSignUp"
-        @switch-to-login="formState = 'login'" />
+        <SignUpFormComponent
+          v-else
+          :is-loading="isLoading"
+          :server-error="errorMessage"
+          @signup-requested="handleSignUp"
+          @switch-to-login="formState = 'login'" />
+      </div>
     </div>
   </div>
 </template>

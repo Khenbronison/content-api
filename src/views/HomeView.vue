@@ -18,7 +18,10 @@ const handleSidebarToggle = (value) => {
     <!-- Main content area -->
     <div
       class="flex-1 transition-all duration-300"
-      :style="{ marginLeft: isCollapsed ? '5rem' : '16rem' }">
+      :class="[
+        'lg:ml-64', // Default margin on desktop (16rem = 256px)
+        { 'lg:!ml-28': isCollapsed }, // Collapsed margin on desktop (7rem = 112px)
+      ]">
       <div class="p-6">
         <RouterView />
       </div>
