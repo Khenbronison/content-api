@@ -6,7 +6,7 @@
         <tr>
           <th>Timestamp</th>
           <th>Endpoint</th>
-          <th>Status</th>
+          <th class="hidden md:block">Status</th>
           <th>NUMBER</th>
         </tr>
       </thead>
@@ -14,7 +14,7 @@
         <tr v-for="activity in recentActivity" :key="activity.id">
           <td>{{ activity.timestamp }}</td>
           <td>{{ activity.endpoint }}</td>
-          <td>
+          <td class="hidden md:block"> 
             <span
               class="px-2 py-1 rounded-full font-semibold text-xs"
               :class="

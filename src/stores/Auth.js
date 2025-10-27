@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   isAuthenticated: false,
+  showLogoutModal: false,
 };
 
 export const useAuthStore = defineStore("authStore", {

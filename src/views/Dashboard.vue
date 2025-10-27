@@ -1,8 +1,10 @@
 <template>
-  <main class="flex-1 px-8">
-    <header class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+  <main class="md:px-8 pt-14 md:pt-0">
+    <header class="flex justify-between items-center mb-4">
       <div class="flex items-center gap-2">
-        <h2 class="text-base font-semibold text-blue-700">Welcome back, {{ user }}</h2>
+        <h2 class="text-base font-semibold text-blue-700">
+          Welcome back, <span class="hidden md:inline">{{ user }}</span>
+        </h2>
         <img src="../assets/icons/wave.svg" alt="" width="15" />
       </div>
       <div class="flex items-center space-x-3 font-medium">
@@ -13,7 +15,7 @@
       </div>
     </header>
 
-    <div class="mb-8 flex flex-col md:flex-row md:justify-between md:gap-y-2">
+    <div class="mb-8 flex justify-between items-center">
       <p class="text-2xl font-medium text-gray-800">Dashboard</p>
       <div class="">
         <p class="font-semibold text-gray-600">
