@@ -18,16 +18,14 @@
             <td class="py-4 px-2 text-gray-800 font-medium">{{ item.amount }}</td>
             <td class="py-4 px-2">
               <span
-                class="inline-block py-1 px-2.5 rounded-full font-semibold text-xs bg-green-100 text-green-800"
-              >
+                class="inline-block py-1 px-2.5 rounded-full font-semibold text-xs bg-green-100 text-green-800">
                 {{ item.status }}
               </span>
             </td>
             <td class="py-4 px-2">
               <a
                 :href="item.invoiceUrl"
-                class="font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"
-              >
+                class="font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
                 <Download class="h-4 w-4" />
                 <span>Download</span>
               </a>
