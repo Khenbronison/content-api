@@ -1,8 +1,8 @@
 <!-- views/Analytics.vue -->
 <template>
   <main class="flex-1 p-8">
-    <header class="mb-8">
-      <h2 class="text-3xl font-semibold text-gray-900">Detailed Analytics</h2>
+    <header class="mb-6">
+      <h2 class="text-2xl font-medium text-gray-800">Detailed Analytics</h2>
     </header>
 
     <!-- The FilterBar emits its state, which we handle here -->

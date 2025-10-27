@@ -75,9 +75,9 @@ const selectPlan = (planId) => {
 
 <template>
   <main class="w-full p-4 md:p-6">
-    <!-- <header>
-      <h2 class="text-3xl font-bold text-gray-800 mb-8">Billing & Plans</h2>
-    </header> -->
+    <header class="mb-8">
+      <h2 class="text-2xl font-medium text-gray-800">Billing & Plans</h2>
+    </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
       <!-- Left Column -->

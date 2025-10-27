@@ -1,8 +1,6 @@
 <!-- components/analytics/FilterBar.vue -->
 <template>
-  <div
-    class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8 flex items-end gap-6 flex-wrap"
-  >
+  <div class="box mb-8 flex items-end gap-6 flex-wrap">
     <!-- Date Range -->
     <div class="flex flex-col">
       <label for="dateRangeSelect" class="text-xs font-semibold text-gray-500 mb-1"
@@ -11,8 +9,7 @@
       <select
         id="dateRangeSelect"
         v-model="filters.dateRange"
-        class="px-3 py-2 border border-gray-300 rounded-md text-sm"
-      >
+        class="px-3 py-2 border border-gray-300 rounded-md text-sm">
         <option value="7">Last 7 Days</option>
         <option value="30">Last 30 Days</option>
         <option value="90">Last 90 Days</option>
@@ -28,8 +25,7 @@
           type="date"
           id="startDate"
           v-model="filters.startDate"
-          class="px-3 py-2 border border-gray-300 rounded-md text-sm"
-        />
+          class="px-3 py-2 border border-gray-300 rounded-md text-sm" />
       </div>
       <div class="flex flex-col">
         <label for="endDate" class="text-xs font-semibold text-gray-500 mb-1">End Date</label>
@@ -37,8 +33,7 @@
           type="date"
           id="endDate"
           v-model="filters.endDate"
-          class="px-3 py-2 border border-gray-300 rounded-md text-sm"
-        />
+          class="px-3 py-2 border border-gray-300 rounded-md text-sm" />
       </div>
     </div>
 
@@ -50,8 +45,7 @@
       <select
         id="contentTypeSelect"
         v-model="filters.contentType"
-        class="px-3 py-2 border border-gray-300 rounded-md text-sm"
-      >
+        class="px-3 py-2 border border-gray-300 rounded-md text-sm">
         <option value="all">All Content Types</option>
         <option value="Quizzes">Quiz Questions</option>
         <option value="Lesson Notes">Lesson Notes</option>
@@ -63,8 +57,7 @@
     <!-- Apply Button -->
     <button
       @click="emitFilters"
-      class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md transition-colors"
-    >
+      class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md transition-colors">
       Apply Filters
     </button>
   </div>
