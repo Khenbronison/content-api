@@ -35,9 +35,10 @@
       <button
         type="submit"
         :disabled="isLoading || !email || !password"
-        class="w-full bg-blue-700 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg"
+        class="w-full bg-blue-700 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg flex justify-center items-center"
         :class="{ 'opacity-60 cursor-not-allowed': isLoading }">
-        {{ isLoading ? "Logging In..." : "Login" }}
+        <FwbSpinner size="4" color="white" v-if="isLoading" />
+        <p v-else>Login</p>
       </button>
     </form>
 
@@ -58,6 +59,7 @@
 </template>
 
 <script setup>
+import { FwbSpinner } from "flowbite-vue";
 import { ref } from "vue";
 // Make sure RouterLink is available if you're not using it globally
 // import { RouterLink } from 'vue-router';

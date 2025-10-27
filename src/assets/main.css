@@ -17,3 +17,7 @@ body {
 nav a.router-link-exact-active {
   @apply bg-gray-700;
 }
+
+.box {
+  @apply bg-white border border-gray-200 p-3 rounded-lg;
+}

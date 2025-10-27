@@ -56,9 +56,9 @@
       </nav>
 
       <!-- Logout at bottom -->
-      <div class="mt-auto">
-        <router-link
-          to="/"
+      <div class="mt-auto cursor-pointer">
+        <div
+          @click="logout"
           class="flex items-center py-3 px-4 rounded-md transition-colors duration-200 hover:bg-gray-700 font-medium relative group">
           <LogOut :size="20" :class="['flex-shrink-0', isCollapsed ? 'mx-auto' : 'mr-3']" />
           <span
@@ -77,7 +77,7 @@
             <div
               class="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-800"></div>
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
   </aside>
@@ -86,8 +86,12 @@
 <script setup>
 import { ref } from "vue";
 import { LayoutDashboard, BarChart3, FileText, Key, CreditCard, LogOut } from "lucide-vue-next";
+import { useAuthStore } from "@/stores/Auth";
+import { storeToRefs } from "pinia";
+import router from "@/router";
 
 const emit = defineEmits(["toggle"]);
+const authStore = useAuthStore();
 const isCollapsed = ref(false);
 
 const toggleSidebar = () => {
@@ -102,6 +106,10 @@ const navItems = [
   { path: "/api/keys", label: "API Keys", icon: Key },
   { path: "/billing", label: "Billing", icon: CreditCard },
 ];
+
+const logout = () => {
+  authStore.logoutUser();
+};
 </script>
 
 <style scoped>

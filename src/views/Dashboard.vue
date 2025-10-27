@@ -1,6 +1,6 @@
 <template>
   <main class="flex-1 px-8">
-    <header class="flex justify-between items-center mb-4">
+    <header class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
       <div class="flex items-center gap-2">
         <h2 class="text-base font-semibold text-blue-700">Welcome back, {{ user }}</h2>
         <img src="../assets/icons/wave.svg" alt="" width="15" />
@@ -13,7 +13,7 @@
       </div>
     </header>
 
-    <div class="mb-8 flex justify-between">
+    <div class="mb-8 flex flex-col md:flex-row md:justify-between md:gap-y-2">
       <p class="text-2xl font-medium text-gray-800">Dashboard</p>
       <div class="">
         <p class="font-semibold text-gray-600">
@@ -33,15 +33,13 @@
     <p class="text-text-secondary mb-4">Here's a summary of your API usage.</p>
     <ContentFetchedCard :currentUsage="currentUsage" />
 
-    <div class="grid grid-cols-2 gap-6">
-      <div class="bg-card-bg rounded-xl p-6 shadow-custom border border-border-color">
-        <div class="text-lg font-semibold mb-6 text-text-primary">
-          API Calls Over Time (Last 7 Days)
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="box">
+        <div class="text-base font-medium mb-6">API Calls Over Time (Last 7 Days)</div>
         <LineChart :data="usageOverTimeData" :options="usageOverTimeOptions" class="w-full h-64" />
       </div>
-      <div class="bg-card-bg rounded-xl p-6 shadow-custom border border-border-color">
-        <div class="text-lg font-semibold mb-6 text-text-primary">Endpoint Usage Breakdown</div>
+      <div class="box">
+        <div class="text-base font-medium mb-6">Endpoint Usage Breakdown</div>
         <BarChart :data="endpointUsageData" :options="endpointUsageOptions" class="w-full h-64" />
       </div>
     </div>
@@ -89,24 +87,12 @@ ChartJS.register(
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
-// Data that was in the original script setup
-const plansData = {
-  free: { name: "Free", limits: { questions: 1000, notes: 100, flashcards: 100, videos: 20 } },
-  pro: { name: "Pro", limits: { questions: 10000, notes: 1000, flashcards: 1000, videos: 200 } },
-  business: {
-    name: "Business",
-    limits: { questions: 50000, notes: 5000, flashcards: 5000, videos: 1000 },
-  },
-};
-
 const currentUsage = reactive({
   questions: 7500,
   notes: 450,
   flashcards: 800,
   videos: 150,
 });
-
-const currentPlanId = "pro";
 
 const recentActivity = [
   {

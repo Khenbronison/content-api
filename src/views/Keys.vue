@@ -8,19 +8,21 @@ import { useNotification } from "@kyvg/vue3-notification";
 import { useApiService } from "@/services/apiService";
 import { useAuthStore } from "@/stores/Auth";
 import { storeToRefs } from "pinia";
+import { FwbSpinner } from "flowbite-vue";
 
 const authStore = useAuthStore();
 const { notify } = useNotification();
 const { get, post, deletes } = useApiService();
 const { user } = storeToRefs(authStore);
-// --- State Owner ---
+
+// --- State ---
 const apiKey = ref(null);
 const newlyGeneratedKey = ref("");
 const isShowKeyModalVisible = ref(false);
 const isConfirmRevokeModalVisible = ref(false);
 const isGetKeyLoading = ref(false);
 const isGenerateApiKeyLoading = ref(false);
-const isRemoveApiKeyLoading = ref(false);
+
 // --- Computed Properties ---
 const maskedApiKey = computed(() => {
   if (!apiKey.value?.key) return "";
@@ -55,16 +57,16 @@ const generateApiKey = async () => {
 
   try {
     const generatedApiKey = await post("/api/v1/api-keys", { name: user.value });
-    newlyGeneratedKey.value = generatedApiKey;
-    console.log(newlyGeneratedKey.value);
+    apiKey.value = generatedApiKey;
+    return generatedApiKey;
   } catch (error) {
   } finally {
     isGenerateApiKeyLoading.value = false;
   }
 };
 
-const handleCreateKeyRequested = () => {
-  newlyGeneratedKey.value = generateApiKey();
+const handleCreateKeyRequested = async () => {
+  apiKey.value = await generateApiKey();
   isShowKeyModalVisible.value = true;
 };
 
@@ -72,35 +74,25 @@ const handleRevokeKeyRequested = () => {
   isConfirmRevokeModalVisible.value = true;
 };
 
+const closeRevokeModal = () => {
+  isConfirmRevokeModalVisible.value = false;
+};
+
 const confirmKeyCreation = () => {
-  apiKey.value = {
-    key: newlyGeneratedKey.value,
-    createdAt: new Date().toISOString(),
-  };
   isShowKeyModalVisible.value = false;
-  newlyGeneratedKey.value = "";
 };
 
 const confirmKeyRevocation = async () => {
-  isRemoveApiKeyLoading.value = true;
-  try {
-    const removeApiKey = await deletes(`/api/v1/api-key/${apiKey.value.id}`);
-    notify({ type: "success", title: "success", text: removeApiKey.message });
-    apiKey.value = null;
-  } catch (error) {
-  } finally {
-    isRemoveApiKeyLoading.value = false;
-    isConfirmRevokeModalVisible.value = false;
-  }
+  apiKey.value = null;
 };
 
 const copyToClipboard = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
-    // notify({ type: 'success', text: 'API Key copied to clipboard!' });
+    notify({ type: "success", text: "API Key copied to clipboard!" });
   } catch (err) {
     console.error("Failed to copy text: ", err);
-    // notify({ type: 'error', text: 'Failed to copy key.' });
+    notify({ type: "error", text: "Failed to copy key." });
   }
 };
 
@@ -112,10 +104,14 @@ onBeforeMount(() => {
 <template>
   <main class="w-full p-4 md:p-8 min-h-screen">
     <header class="pb-4 mb-4 border-b border-gray-200">
-      <h2 class="text-3xl font-bold text-gray-800">API Keys</h2>
+      <h2 class="text-2xl font-medium text-gray-800">API Keys</h2>
     </header>
 
-    <div class="max-w-4xl">
+    <div v-if="isGetKeyLoading" class="flex justify-center items-center gap-2 h-[20vh]">
+      <FwbSpinner color="blue" size="5" />
+      <!-- <p class="text-sm font-medium text-gray-700">Fetching Keys</p> -->
+    </div>
+    <div v-else>
       <!-- ===== THIS SECTION HAS BEEN UPDATED ===== -->
       <div class="text-gray-600 leading-relaxed space-y-2 mb-12">
         <p>
@@ -123,7 +119,7 @@ onBeforeMount(() => {
           API key for this project.
         </p>
         <p>
-          <strong class="font-semibold text-gray-800">Important:</strong> Do not share your API key
+          <strong class="font-semibold text-red-600">Important:</strong> Do not share your API key
           with others or expose it in the browser or other client-side code. For security, we will
           only show you the key once upon creation. View usage per API key on the
           <!-- Use RouterLink for internal navigation in a Vue app -->
@@ -135,8 +131,15 @@ onBeforeMount(() => {
       <!-- ===== END OF UPDATED SECTION ===== -->
 
       <!-- Conditionally render child components based on state -->
-      <ApiKeyEmptyState v-if="!apiKey" @create-key-requested="handleCreateKeyRequested" />
+      <!-- Show spinner while generating -->
+      <div v-if="isGenerateApiKeyLoading" class="flex h-[30vh] justify-center">
+        <FwbSpinner size="5" color="blue" />
+      </div>
 
+      <!-- Show empty state when no key exists and not loading -->
+      <ApiKeyEmptyState v-else-if="!apiKey" @create-key-requested="handleCreateKeyRequested" />
+
+      <!-- Show the key when it exists and not loading -->
       <ApiKeyDisplay
         v-else
         :key-id="apiKey.id"
@@ -149,13 +152,16 @@ onBeforeMount(() => {
 
     <!-- Modals are now controlled via v-model -->
     <ShowKeyModal
+      v-if="isShowKeyModalVisible"
       v-model:visible="isShowKeyModalVisible"
-      :newly-generated-key="newlyGeneratedKey"
+      :newly-generated-key="apiKey?.key"
       @copy-key="copyToClipboard"
       @key-creation-confirmed="confirmKeyCreation" />
 
     <ConfirmRevokeModal
-      v-model:visible="isConfirmRevokeModalVisible"
-      @revocation-confirmed="confirmKeyRevocation" />
+      v-if="isConfirmRevokeModalVisible"
+      :api-key="apiKey?.id"
+      @revocation-confirmed="confirmKeyRevocation"
+      @close="closeRevokeModal" />
   </main>
 </template>
