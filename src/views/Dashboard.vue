@@ -1,5 +1,8 @@
 <template>
-  <main class="md:px-8 pt-14 md:pt-0">
+  <div class="h-[80vh] flex justify-center items-center gap-4" v-if="loading">
+    <FwbSpinner color="blue" size="7" />
+  </div>
+  <main class="md:px-8 pt-14 md:pt-0" v-else>
     <header class="flex justify-between items-center mb-4">
       <div class="flex items-center gap-2">
         <h2 class="text-base font-semibold text-blue-700">
@@ -51,7 +54,7 @@
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, onBeforeMount, reactive, ref } from "vue";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -72,6 +75,8 @@ import ContentFetchedCard from "@/components/dashboard/ContentFetchedCard.vue";
 import RecentActivityTable from "@/components/dashboard/RecentActivityTable.vue";
 import { useAuthStore } from "@/stores/Auth";
 import { storeToRefs } from "pinia";
+import { useApiService } from "@/services/apiService";
+import { FwbSpinner } from "flowbite-vue";
 
 // Register Chart.js components
 ChartJS.register(
@@ -87,13 +92,15 @@ ChartJS.register(
 );
 
 const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const { user, key } = storeToRefs(authStore);
+const { get } = useApiService();
 
+const loading = ref(true);
 const currentUsage = reactive({
-  questions: 7500,
-  notes: 450,
-  flashcards: 800,
-  videos: 150,
+  questions: 0,
+  notes: 0,
+  flashcards: 0,
+  videos: 0,
 });
 
 const recentActivity = [
@@ -145,7 +152,7 @@ const usageOverTimeData = computed(() => ({
   datasets: [
     {
       label: "API Calls",
-      data: [1200, 1900, 1500, 2100, 1800, 2400, 2800],
+      data: [0, 0, 0, 0, 0, 0, 0],
       borderColor: "rgba(59, 130, 246, 1)",
       backgroundColor: "rgba(59, 130, 246, 0.1)",
       fill: true,
@@ -230,4 +237,30 @@ const endpointUsageOptions = {
     },
   },
 };
+
+const loadData = async () => {
+  try {
+    const questions = await get(
+      `/api/v1/usage-stats/counts?key_id=${key.value.id}&query_type=QUESTIONS&period=${30}`,
+    );
+    const lessons = await get(
+      `/api/v1/usage-stats/counts?key_id=${key.value.id}&query_type=LESSON_NOTES&period=${30}`,
+    );
+    const videos = await get(
+      `/api/v1/usage-stats/counts?key_id=${key.value.id}&query_type=VIDEOS&period=${30}`,
+    );
+    const cards = await get(
+      `/api/v1/usage-stats/counts?key_id=${key.value.id}&query_type=CARDS&period=${30}`,
+    );
+    console.log(questions, lessons, videos, cards);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+onBeforeMount(() => {
+  loadData();
+});
 </script>

@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 const initialState = {
   user: null,
   token: null,
+  key: null,
   isAuthenticated: false,
   showLogoutModal: false,
 };

@@ -13,7 +13,7 @@ import { FwbSpinner } from "flowbite-vue";
 const authStore = useAuthStore();
 const { notify } = useNotification();
 const { get, post, deletes } = useApiService();
-const { user } = storeToRefs(authStore);
+const { user, key } = storeToRefs(authStore);
 
 // --- State ---
 const apiKey = ref(null);
@@ -31,8 +31,8 @@ const maskedApiKey = computed(() => {
 });
 
 const creationDate = computed(() => {
-  if (!apiKey.value?.createdAt) return "";
-  return new Date(apiKey.value.createdAt).toLocaleDateString("en-US", {
+  if (!apiKey.value?.created_at) return "";
+  return new Date(apiKey.value.created_at).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -45,6 +45,7 @@ const getApiKey = async () => {
   try {
     const userApiKey = await get("/api/v1/api-keys");
     apiKey.value = userApiKey[0];
+    key.value = apiKey.value;
     console.log(apiKey.value);
   } catch (error) {
   } finally {
